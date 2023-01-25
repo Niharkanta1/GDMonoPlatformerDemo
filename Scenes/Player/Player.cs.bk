@@ -1,0 +1,120 @@
+using Godot;
+using System;
+
+public class Player : KinematicBody2D
+{
+    private AnimationNodeStateMachinePlayback animationState;
+
+    [Export] private int gravity = 1000;
+    [Export] private int jumpSpeed = -300;
+    [Export] private int walkSpeed = 75;
+    [Export] private int dashSpeed = 300;
+    [Export] private int numDash = 1;
+
+    private Vector2 velocity;
+    private String direction = "right";
+    private bool isAttacking = false;
+    private bool isDashing = false;
+
+    private States state;
+    enum States { IDLE, WALK, FALL, JUMP, ATTACK, DASH, PUSH, DEATH };
+
+    private Sprite sprite;
+    private Position2D hitBoxPosition;
+
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
+    {
+        animationState =  (AnimationNodeStateMachinePlayback) GetNode<AnimationTree>("AnimationTree").Get("parameters/playback");
+        state = States.IDLE;
+
+        sprite = GetNode<Sprite>("Sprite");
+        hitBoxPosition = GetNode<Position2D>("HitboxPosition");
+    }
+
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _PhysicsProcess(float delta)
+    {
+        switch(state) {
+            // Idle State
+            case States.IDLE:
+                animationState.Travel("Idle");
+                if(Input.IsActionPressed("ui_left") || Input.IsActionPressed("ui_right")) {
+                    state = States.WALK;
+                }
+                break;
+
+            // Walk State
+            case States.WALK:
+                animationState.Travel("Walk");
+                var inputDirectionX = Input.GetActionStrength("ui_right") - Input.GetActionStrength("ui_left");
+
+                if(Input.IsActionPressed("ui_right") && Input.IsActionPressed("ui_left")) {
+                    inputDirectionX = (direction == "right")? 1 : -1;
+                }
+
+                UpdateDirection(inputDirectionX);
+                velocity.x = walkSpeed * inputDirectionX;
+                ApplyGravity(delta);
+                velocity = MoveAndSlide(velocity, Vector2.Up);
+
+                if(MathUtil.IsEqualApprox(inputDirectionX, 0.0f)) 
+                    state = States.IDLE;
+
+                break;
+
+            case States.FALL:
+                break;
+
+            case States.JUMP:
+                break;
+
+            case States.ATTACK:
+                break;
+
+            case States.DASH:
+                break;
+
+            case States.PUSH:
+                break;
+
+            case States.DEATH:
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    private void UpdateDirection(float inputDirectionX)
+    {
+        if(inputDirectionX > 0)
+            SetDirectionRight();
+        else if(inputDirectionX <0)
+            SetDirectionLeft();
+    }
+
+    private void SetDirectionLeft()
+    {
+        direction = "left";
+        sprite.FlipH = true;
+        hitBoxPosition.RotationDegrees = 180;
+    }
+
+    private void SetDirectionRight()
+    {
+        direction = "right";
+        sprite.FlipH = false;
+        hitBoxPosition.RotationDegrees = 0;
+    }
+
+    private void ApplyGravity(float delta)
+    {
+        velocity.y += gravity * delta;
+    }
+
+    private void OnAttackFinished() => isAttacking = false;
+    private void OnDashFinished() => isDashing = false;
+    private void ResetDashCounter(int value) => numDash = value;
+    private bool HasDashes() => numDash > 0;
+}
