@@ -1,8 +1,9 @@
 using System;
 
-public static class MathUtil {
+public static class MathUtil
+{
 
-    public static bool IsEqualApprox(float a, float b) 
+    public static bool IsEqualApprox(float a, float b)
     {
         return IsEqualApprox(a, b, 0.00001);
     }
@@ -11,4 +12,7 @@ public static class MathUtil {
     {
         return Math.Abs(left - right) < delta;
     }
+
+    // Angles
+    public static float DegreeToRadian(float degrees) => (float)(Math.PI / 180) * degrees;
 }

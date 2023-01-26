@@ -18,6 +18,13 @@ public class Player : KinematicBody2D
     public bool isAttacking = false;
     public bool isDashing = false;
 
+    // Handle slopes
+    [Export] public float snapLength = 2;
+    [Export] public float floorMaxAngleDegree = 65;
+    public Vector2 snapDirection = Vector2.Down;
+    public Vector2 snapVector;
+    public float floorMaxAngle;
+
     public Sprite sprite;
     public Position2D hitBoxPosition;
     public CollisionShape2D collisionShape2D;
@@ -34,6 +41,8 @@ public class Player : KinematicBody2D
         collisionShape2D.Disabled = true;
 
         numDash = maxDash;
+        snapVector = snapDirection * snapLength;
+        floorMaxAngle = MathUtil.DegreeToRadian(floorMaxAngleDegree);
     }
 
     public void UpdateDirection(float inputDirectionX)

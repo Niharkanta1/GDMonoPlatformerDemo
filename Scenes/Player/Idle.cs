@@ -27,7 +27,16 @@ public class Idle : PlayerState
             }
         }
         player.ApplyGravity(delta);
-        player.velocity = player.MoveAndSlide(player.velocity, Vector2.Up);
+        //player.velocity = player.MoveAndSlide(player.velocity, Vector2.Up);
+        player.velocity = player.MoveAndSlideWithSnap(
+            player.velocity,
+            player.snapVector,
+            Vector2.Up,
+            true,               //stops on slope
+            4,
+            player.floorMaxAngle,
+            false
+        );
 
         // Handle Collision here
 

@@ -16,3 +16,9 @@ mono_crash.*.json
 
 /.import/
 /build/
+script_templates/
+
+# VS Specific
+.vs/
+Backup/
+UpgradeLog.htm

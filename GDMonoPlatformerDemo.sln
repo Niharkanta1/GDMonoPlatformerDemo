@@ -1,12 +1,15 @@
-﻿Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GDMonoPlatformerDemo", "GDMonoPlatformerDemo.csproj", "{969FEFB7-7A64-4963-AF98-0E015151CBBE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-	Debug|Any CPU = Debug|Any CPU
-	ExportDebug|Any CPU = ExportDebug|Any CPU
-	ExportRelease|Any CPU = ExportRelease|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		ExportDebug|Any CPU = ExportDebug|Any CPU
+		ExportRelease|Any CPU = ExportRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{969FEFB7-7A64-4963-AF98-0E015151CBBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -15,5 +18,11 @@ Global
 		{969FEFB7-7A64-4963-AF98-0E015151CBBE}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
 		{969FEFB7-7A64-4963-AF98-0E015151CBBE}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
 		{969FEFB7-7A64-4963-AF98-0E015151CBBE}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DB8040E1-C5AF-41E5-AD76-23971D108CDE}
 	EndGlobalSection
 EndGlobal

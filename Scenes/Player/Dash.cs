@@ -28,7 +28,17 @@ public class Dash : PlayerState
 
             return;
         }
-        player.velocity = player.MoveAndSlide(player.velocity, Vector2.Up);
+        //player.velocity = player.MoveAndSlide(player.velocity, Vector2.Up);
+        player.velocity = player.MoveAndSlideWithSnap(
+            player.velocity,
+            player.snapVector,
+            Vector2.Up,
+            true,
+            4,
+            player.floorMaxAngle,
+            false
+        );
+
 
         // Handle Collision here
 
