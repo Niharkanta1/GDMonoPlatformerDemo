@@ -12,7 +12,7 @@ public class GroundButton : StaticBody2D
 
     private bool isButtonPressed = false;
     private bool isPerformingOperation = false;
-    private int state; // 0 for Close, 1 for Open
+    private int state, nextState; // 0 for Close, 1 for Open
 
     public override void _Ready()
     {
@@ -23,22 +23,26 @@ public class GroundButton : StaticBody2D
         gate.Connect("OperationFinished", this, nameof(OnGateOperationFinished));
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _Process(float delta)
     {
         if (isPerformingOperation) return;
-        if (state == 0 && isButtonPressed)
+        if (state != nextState)
         {
-            UnPressButton();
-        }
-        else if (state == 1 && !isButtonPressed)
-        {
-            PressButton();
+            if (nextState == 1)
+            {
+                state = 1;
+                PressButton();
+            }
+            if (nextState == 0)
+            {
+                state = 0;
+                UnPressButton();
+            }
         }
     }
 
     private void PressButton()
     {
-        isButtonPressed = true;
         unpressedCollision.SetDeferred("disabled", true);
         pressedCollision.SetDeferred("diabled", false);
         animatedSprite.Play("Pressed");
@@ -47,7 +51,7 @@ public class GroundButton : StaticBody2D
 
     private void UnPressButton()
     {
-        isButtonPressed = false;
+
         unpressedCollision.SetDeferred("disabled", false);
         pressedCollision.SetDeferred("diabled", true);
         animatedSprite.Play("Unpressed");
@@ -60,7 +64,8 @@ public class GroundButton : StaticBody2D
         {
             if (!isButtonPressed)
             {
-                state = 1;
+                nextState = 1;
+                isButtonPressed = true;
             }
 
         }
@@ -72,7 +77,8 @@ public class GroundButton : StaticBody2D
         {
             if (isButtonPressed)
             {
-                state = 0;
+                nextState = 0;
+                isButtonPressed = false;
             }
         }
     }

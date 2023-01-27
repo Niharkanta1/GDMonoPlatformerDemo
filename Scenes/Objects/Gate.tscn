@@ -1,6 +1,6 @@
 [gd_scene load_steps=41 format=2]
 
-[ext_resource path="res://Scenes/Objects/Gate.cs" type="Script" id=1]
+[ext_resource path="res://Scripts/Objects/Gate.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Objects/stone_block_sheet.png" type="Texture" id=2]
 
 [sub_resource type="AtlasTexture" id=1]
@@ -176,7 +176,7 @@ script = ExtResource( 1 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 37 )
 animation = "Idle"
-frame = 3
+frame = 8
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

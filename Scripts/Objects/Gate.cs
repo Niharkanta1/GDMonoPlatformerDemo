@@ -55,16 +55,20 @@ public class Gate : StaticBody2D
 
     public void OpenGate()
     {
-        GD.Print("Open gate");
+        GD.Print("Open");
         if (isClosed)
             state = 1;
+        else
+            EmitSignal(nameof(OperationFinished), true);
     }
 
     public void CloseGate()
     {
-        GD.Print("Close gate");
+        GD.Print("Close");
         if (!isClosed)
             state = 0;
+        else
+            EmitSignal(nameof(OperationFinished), false);
     }
 
     public void OnAnimatedSpriteAnimationFinished()
