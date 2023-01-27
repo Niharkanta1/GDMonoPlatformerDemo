@@ -1,6 +1,10 @@
 using Godot;
 using System;
 
+/*
+ * @auther  Nihar
+ * @company	DeadW0Lf Games
+ */
 public class Dash : PlayerState
 {
     public override void Enter()

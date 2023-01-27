@@ -1,6 +1,10 @@
 using Godot;
 using System;
 
+/*
+ * @auther  Nihar
+ * @company	DeadW0Lf Games
+ */
 public class Jump : PlayerState
 {
     public override void Enter()
@@ -30,6 +34,10 @@ public class Jump : PlayerState
         player.velocity = player.MoveAndSlide(player.velocity, Vector2.Up);
 
         // Handle Collisions here
+        if (player.IsOnCeiling())
+        {
+            player.velocity.y = 0;
+        }
 
         // Handle Other Transitions
         if (Input.IsActionJustPressed("Dash") && player.HasDashes())

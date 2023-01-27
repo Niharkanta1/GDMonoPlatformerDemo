@@ -1,6 +1,10 @@
 using Godot;
 using System;
 
+/*
+ * @auther  Nihar
+ * @company	DeadW0Lf Games
+ */
 public class Enemy : KinematicBody2D
 {
     [Export] private float gravity = 1000;
@@ -18,6 +22,7 @@ public class Enemy : KinematicBody2D
     private AnimatedSprite animatedSprite;
     private CollisionShape2D collisionShape2D;
 
+    private bool isDying = false;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -33,7 +38,7 @@ public class Enemy : KinematicBody2D
     }
 
     // Runs 60 times per seconds
-    public override async void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(float delta)
     {
         base._PhysicsProcess(delta);
         switch (state)
@@ -52,8 +57,8 @@ public class Enemy : KinematicBody2D
             case States.Death:
                 animatedSprite.Play("Death");
                 collisionShape2D.Disabled = true;
-                await ToSignal(animatedSprite, "animation_finished");
-                QueueFree();
+                //await ToSignal(animatedSprite, "animation_finished");
+                isDying = true;
                 break;
 
             default:
@@ -104,6 +109,17 @@ public class Enemy : KinematicBody2D
         if (other.Owner.Name == "Player")
         {
             state = States.Death;
+        }
+    }
+
+    // Signals
+
+    public void OnAnimatedSpriteAnimationFinished()
+    {
+        if (isDying)
+        {
+            isDying = false;
+            QueueFree();
         }
     }
 

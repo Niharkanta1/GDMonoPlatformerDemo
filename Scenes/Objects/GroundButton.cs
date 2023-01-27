@@ -8,14 +8,32 @@ public class GroundButton : StaticBody2D
 {
     private AnimatedSprite animatedSprite;
     private CollisionPolygon2D unpressedCollision, pressedCollision;
+    private Gate gate;
 
     private bool isButtonPressed = false;
+    private bool isPerformingOperation = false;
+    private int state; // 0 for Close, 1 for Open
 
     public override void _Ready()
     {
         animatedSprite = GetNode<AnimatedSprite>("AnimatedSprite");
         unpressedCollision = GetNode<CollisionPolygon2D>("UnpressedCollision");
         pressedCollision = GetNode<CollisionPolygon2D>("PressedCollision");
+        gate = GetNode<Gate>("Gate");
+        gate.Connect("OperationFinished", this, nameof(OnGateOperationFinished));
+    }
+
+    public override void _PhysicsProcess(float delta)
+    {
+        if (isPerformingOperation) return;
+        if (state == 0 && isButtonPressed)
+        {
+            UnPressButton();
+        }
+        else if (state == 1 && !isButtonPressed)
+        {
+            PressButton();
+        }
     }
 
     private void PressButton()
@@ -24,6 +42,7 @@ public class GroundButton : StaticBody2D
         unpressedCollision.SetDeferred("disabled", true);
         pressedCollision.SetDeferred("diabled", false);
         animatedSprite.Play("Pressed");
+        PerformOperation(true);
     }
 
     private void UnPressButton()
@@ -32,6 +51,7 @@ public class GroundButton : StaticBody2D
         unpressedCollision.SetDeferred("disabled", false);
         pressedCollision.SetDeferred("diabled", true);
         animatedSprite.Play("Unpressed");
+        PerformOperation(false);
     }
 
     private void OnPressDetectorBodyEentered(Node body)
@@ -39,7 +59,10 @@ public class GroundButton : StaticBody2D
         if (body.Name == "RigidBox" || body.Name == "Player")
         {
             if (!isButtonPressed)
-                PressButton();
+            {
+                state = 1;
+            }
+
         }
     }
 
@@ -48,7 +71,24 @@ public class GroundButton : StaticBody2D
         if (body.Name == "RigidBox" || body.Name == "Player")
         {
             if (isButtonPressed)
-                UnPressButton();
+            {
+                state = 0;
+            }
         }
+    }
+
+    public void PerformOperation(bool flag)
+    {
+        if (isPerformingOperation) return;
+        isPerformingOperation = true;
+        if (flag)
+            gate.OpenGate();
+        else
+            gate.CloseGate();
+    }
+
+    public void OnGateOperationFinished(bool val)
+    {
+        isPerformingOperation = false;
     }
 }

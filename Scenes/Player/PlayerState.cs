@@ -2,6 +2,10 @@ using Godot;
 using System;
 using System.Diagnostics;
 
+/*
+ * @auther  Nihar
+ * @company	DeadW0Lf Games
+ */
 public class PlayerState : State
 {
     public Player player;

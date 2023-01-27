@@ -13,7 +13,7 @@
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 4.0
-height = 8.0
+height = 6.0
 
 [sub_resource type="Animation" id=2]
 resource_name = "Attack"
@@ -329,6 +329,7 @@ vframes = 35
 frame = 11
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 1 )
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

@@ -1,5 +1,9 @@
 using System;
 
+/*
+ * @auther  Nihar
+ * @company	DeadW0Lf Games
+ */
 public static class MathUtil
 {
 

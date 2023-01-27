@@ -101,5 +101,6 @@ wait_time = 2.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource( 17 )
 
+[connection signal="animation_finished" from="AnimatedSprite" to="." method="OnAnimatedSpriteAnimationFinished"]
 [connection signal="timeout" from="MoveTimer" to="." method="OnMoveTimerTimeout"]
 [connection signal="area_entered" from="Hurtbox" to="." method="OnHurtboxAreaEntered"]

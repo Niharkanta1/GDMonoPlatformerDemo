@@ -2,6 +2,10 @@ using Godot;
 using System;
 using static Godot.GD;
 
+/*
+ * @auther  Nihar
+ * @company	DeadW0Lf Games
+ */
 public enum LogLevel
 {
     DEBUG,
@@ -9,7 +13,7 @@ public enum LogLevel
     ERROR
 }
 
-public static class Logger 
+public static class Logger
 {
     private const int LeveStringMax = 6;
     private const int NodeNameMax = 30;
