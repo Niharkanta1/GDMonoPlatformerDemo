@@ -2,7 +2,7 @@ using Godot;
 
 /*
  * @auther  Nihar
- * @company	DeadW0Lf Games
+ * @company DeadW0Lf Games
  */
 public class GroundButton : StaticBody2D
 {

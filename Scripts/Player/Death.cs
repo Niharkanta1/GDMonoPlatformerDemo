@@ -10,6 +10,7 @@ public class Death : PlayerState
     public override void Enter()
     {
         player.animationState.Travel("Death");
+        player.playerCollisionShape.Disabled = true;
     }
 
     public override void Exit()

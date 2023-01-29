@@ -32,6 +32,7 @@ public class Player : KinematicBody2D
     public Sprite sprite;
     public Position2D hitBoxPosition;
     public CollisionShape2D collisionShape2D;
+    public CollisionShape2D playerCollisionShape;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -39,6 +40,8 @@ public class Player : KinematicBody2D
         animationState = (AnimationNodeStateMachinePlayback)GetNode<AnimationTree>("AnimationTree").Get("parameters/playback");
         sprite = GetNode<Sprite>("Sprite");
         hitBoxPosition = GetNode<Position2D>("HitboxPosition");
+
+        playerCollisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
 
         // Disabling the Hitbox
         collisionShape2D = GetNode<CollisionShape2D>("HitboxPosition/Hitbox/CollisionShape2D");

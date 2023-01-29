@@ -55,7 +55,6 @@ public class Gate : StaticBody2D
 
     public void OpenGate()
     {
-        GD.Print("Open");
         if (isClosed)
             state = 1;
         else
@@ -64,7 +63,6 @@ public class Gate : StaticBody2D
 
     public void CloseGate()
     {
-        GD.Print("Close");
         if (!isClosed)
             state = 0;
         else

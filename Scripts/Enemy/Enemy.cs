@@ -22,6 +22,12 @@ public class Enemy : KinematicBody2D
     private AnimatedSprite animatedSprite;
     private CollisionShape2D collisionShape2D;
 
+    [Export] public float snapLength = 2;
+    [Export] public float floorMaxAngleDegree = 65;
+    public Vector2 snapDirection = Vector2.Down;
+    public Vector2 snapVector;
+    public float floorMaxAngle;
+
     private bool isDying = false;
 
     // Called when the node enters the scene tree for the first time.
@@ -35,12 +41,14 @@ public class Enemy : KinematicBody2D
         moveTimer.Start();
         animatedSprite = GetNode<AnimatedSprite>("AnimatedSprite");
         collisionShape2D = GetNode<CollisionShape2D>("CollisionShape2D");
+
+        snapVector = snapDirection * snapLength;
+        floorMaxAngle = MathUtil.DegreeToRadian(floorMaxAngleDegree);
     }
 
     // Runs 60 times per seconds
     public override void _PhysicsProcess(float delta)
     {
-        base._PhysicsProcess(delta);
         switch (state)
         {
             case States.Walk:
@@ -48,9 +56,32 @@ public class Enemy : KinematicBody2D
                 UpdateDirection(inputDirectionX);
                 velocity.x = walkSpeed * inputDirectionX;
                 ApplyGravity(delta);
-                velocity = MoveAndSlide(velocity, Vector2.Up);
+                //velocity = MoveAndSlide(velocity, Vector2.Up);
+                velocity = MoveAndSlideWithSnap(
+                    velocity,
+                    snapVector,
+                    Vector2.Up,
+                    true,
+                    4,
+                    floorMaxAngle,
+                    false
+                );
 
                 // handle collisions here
+                var slideCount = GetSlideCount();
+                if (slideCount > 0)
+                {
+                    for (var i = 0; i < slideCount; i++)
+                    {
+                        var collision = GetSlideCollision(i);
+                        var collider = collision.Collider;
+                        if (collider.GetType().Name == "Player")
+                        {
+                            StateMachine sm = ((Node)collider).GetNode<StateMachine>("StateMachine");
+                            sm.TransitionTo("Death");
+                        }
+                    }
+                }
 
                 break;
 
