@@ -28,11 +28,13 @@ public class Player : KinematicBody2D
     public Vector2 snapDirection = Vector2.Down;
     public Vector2 snapVector;
     public float floorMaxAngle;
+    public Vector2 rigidPush;
 
     public Sprite sprite;
     public Position2D hitBoxPosition;
     public CollisionShape2D collisionShape2D;
     public CollisionShape2D playerCollisionShape;
+    public RayCast2D rayCast;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -40,6 +42,7 @@ public class Player : KinematicBody2D
         animationState = (AnimationNodeStateMachinePlayback)GetNode<AnimationTree>("AnimationTree").Get("parameters/playback");
         sprite = GetNode<Sprite>("Sprite");
         hitBoxPosition = GetNode<Position2D>("HitboxPosition");
+        rayCast = GetNode<RayCast2D>("RayCast2D");
 
         playerCollisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
 
@@ -50,6 +53,7 @@ public class Player : KinematicBody2D
         numDash = maxDash;
         snapVector = snapDirection * snapLength;
         floorMaxAngle = MathUtil.DegreeToRadian(floorMaxAngleDegree);
+        rigidPush = new Vector2(255, 50);
     }
 
     public void UpdateDirection(float inputDirectionX)

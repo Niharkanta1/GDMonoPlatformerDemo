@@ -41,6 +41,21 @@ public class Fall : PlayerState
         );
 
         // Handle Collisions here
+        // Handle Collisions
+        if (player.GetSlideCount() > 0)
+        {
+            for (int i = 0; i < player.GetSlideCount(); i++)
+            {
+                var collision = player.GetSlideCollision(i);
+                var collider = collision.Collider;
+                if ("SpikeClub".Equals(collider.GetType().Name) ||
+                    "SpikePit".Equals(collider.GetType().Name) ||
+                    "Enemy".Equals(collider.GetType().Name))
+                {
+                    PlayerStateMachine.TransitionTo("Death");
+                }
+            }
+        }
 
         // Handle Other Transitions
         if (Input.IsActionJustPressed("Dash") && player.HasDashes())

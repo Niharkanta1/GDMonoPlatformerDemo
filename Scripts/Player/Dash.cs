@@ -43,8 +43,23 @@ public class Dash : PlayerState
             false
         );
 
+        // Handle Collisions
+        if (player.GetSlideCount() > 0)
+        {
+            for (int i = 0; i < player.GetSlideCount(); i++)
+            {
+                var collision = player.GetSlideCollision(i);
+                var collider = collision.Collider;
+                if ("SpikeClub".Equals(collider.GetType().Name) ||
+                    "SpikePit".Equals(collider.GetType().Name) ||
+                    "Enemy".Equals(collider.GetType().Name))
+                {
+                    PlayerStateMachine.TransitionTo("Death");
+                }
+            }
+        }
 
-        // Handle Collision here
-
+        // Handle Other Transitions
+        // No Transitions
     }
 }

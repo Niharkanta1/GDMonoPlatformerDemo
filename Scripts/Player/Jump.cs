@@ -34,6 +34,21 @@ public class Jump : PlayerState
         player.velocity = player.MoveAndSlide(player.velocity, Vector2.Up);
 
         // Handle Collisions here
+        // Handle Collisions
+        if (player.GetSlideCount() > 0)
+        {
+            for (int i = 0; i < player.GetSlideCount(); i++)
+            {
+                var collision = player.GetSlideCollision(i);
+                var collider = collision.Collider;
+                if ("SpikeClub".Equals(collider.GetType().Name) ||
+                    "SpikePit".Equals(collider.GetType().Name) ||
+                    "Enemy".Equals(collider.GetType().Name))
+                {
+                    PlayerStateMachine.TransitionTo("Death");
+                }
+            }
+        }
         if (player.IsOnCeiling())
         {
             player.velocity.y = 0;

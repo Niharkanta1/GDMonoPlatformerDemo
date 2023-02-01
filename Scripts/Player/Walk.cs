@@ -49,6 +49,26 @@ public class Walk : PlayerState
         );
 
         // Handle Collisions here
+        if (player.GetSlideCount() > 0)
+        {
+            for (int i = 0; i < player.GetSlideCount(); i++)
+            {
+                var collision = player.GetSlideCollision(i);
+                var collider = collision.Collider;
+                if ("SpikeClub".Equals(collider.GetType().Name) ||
+                    "SpikePit".Equals(collider.GetType().Name) ||
+                    "Enemy".Equals(collider.GetType().Name))
+                {
+                    PlayerStateMachine.TransitionTo("Death");
+                }
+                if ("RigidBox".Equals(collider.GetType().Name)
+                        && player.rayCast.IsColliding()
+                        && !"RigidBox".Equals(player.rayCast.GetCollider().GetType().Name))
+                {
+                    PlayerStateMachine.TransitionTo("Push");
+                }
+            }
+        }
 
         // Handle Other Transitions
 

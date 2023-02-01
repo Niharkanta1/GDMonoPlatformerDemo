@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=2]
+[gd_scene load_steps=59 format=2]
 
 [ext_resource path="res://Assets/Player/player_sprite_sheet.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Player/Player.cs" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Scripts/Player/Death.cs" type="Script" id=8]
 [ext_resource path="res://Scripts/Player/Attack.cs" type="Script" id=9]
 [ext_resource path="res://Scripts/Player/Dash.cs" type="Script" id=10]
+[ext_resource path="res://Scripts/Player/Push.cs" type="Script" id=11]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 4.0
@@ -326,7 +327,7 @@ lateralFallMovementSpeed = 75
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 vframes = 35
-frame = 11
+frame = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 1 )
@@ -334,6 +335,7 @@ shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Idle"
+reset_on_save = false
 anims/Attack = SubResource( 2 )
 anims/Dash = SubResource( 3 )
 anims/Death = SubResource( 4 )
@@ -350,12 +352,13 @@ active = true
 parameters/playback = SubResource( 13 )
 
 [node name="HitboxPosition" type="Position2D" parent="."]
+position = Vector2( 0, 3 )
 
 [node name="Hitbox" type="Area2D" parent="HitboxPosition"]
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxPosition/Hitbox"]
-position = Vector2( 11.5, 2.6 )
+position = Vector2( 12, 0 )
 rotation = 1.5708
 shape = SubResource( 11 )
 disabled = true
@@ -384,3 +387,11 @@ script = ExtResource( 10 )
 
 [node name="Death" type="Node" parent="StateMachine"]
 script = ExtResource( 8 )
+
+[node name="Push" type="Node" parent="StateMachine"]
+script = ExtResource( 11 )
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 0, 15 )
+collision_mask = 4
