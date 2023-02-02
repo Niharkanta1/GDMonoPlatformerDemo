@@ -90,6 +90,9 @@ public class Player : KinematicBody2D
 
     public void RestartLevel()
     {
-        // handle restart level after player died
+        var leveName = GetParent().GetParent().Name; // depends on the level root design
+        var path = "res://Scenes/Levels/" + leveName + ".tscn";
+        var currentScene = ResourceLoader.Load<PackedScene>(path);
+        ((SceneManager)GetNode("/root/SceneManager")).ChangeScene(currentScene, "LevelFade");
     }
 }

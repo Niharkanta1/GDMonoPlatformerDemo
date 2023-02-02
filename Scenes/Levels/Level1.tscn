@@ -1,0 +1,17 @@
+[gd_scene format=2]
+
+[node name="Level1" type="Node2D"]
+
+[node name="Background" type="Node" parent="."]
+
+[node name="BGElements" type="Node" parent="."]
+
+[node name="Doors" type="Node" parent="."]
+
+[node name="Objects" type="Node" parent="."]
+
+[node name="Tiles" type="Node" parent="."]
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Player" type="Node" parent="."]
