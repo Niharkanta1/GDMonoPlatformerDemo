@@ -1,8 +1,22 @@
-[gd_scene format=2]
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Scenes/Tiles/TileMap.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Objects/SpikeClubPosition.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Objects/FallingSpikes.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Objects/RigidBox.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Enemy/Enemy.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Background/Background.tscn" type="PackedScene" id=7]
 
 [node name="Level1" type="Node2D"]
+position = Vector2( 1, 0 )
 
 [node name="Background" type="Node" parent="."]
+
+[node name="Background" parent="Background" instance=ExtResource( 7 )]
+margin_left = 1.0
+margin_right = 321.0
+margin_bottom = 180.0
 
 [node name="BGElements" type="Node" parent="."]
 
@@ -10,8 +24,32 @@
 
 [node name="Objects" type="Node" parent="."]
 
+[node name="FallingSpikes" parent="Objects" instance=ExtResource( 3 )]
+position = Vector2( 192, 19 )
+rayCastLength = 250.0
+
+[node name="RigidBox" parent="Objects" instance=ExtResource( 5 )]
+position = Vector2( 238, 148 )
+
+[node name="SpikeClubPosition" parent="Objects" instance=ExtResource( 2 )]
+position = Vector2( 144, 69 )
+rotation = 3.14159
+up = true
+
 [node name="Tiles" type="Node" parent="."]
+
+[node name="TileMap" parent="Tiles" instance=ExtResource( 1 )]
+position = Vector2( 1, 0 )
 
 [node name="Enemies" type="Node" parent="."]
 
+[node name="Enemy" parent="Enemies" instance=ExtResource( 6 )]
+position = Vector2( 39, 149 )
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource( 6 )]
+position = Vector2( 276, 152 )
+
 [node name="Player" type="Node" parent="."]
+
+[node name="Player" parent="Player" instance=ExtResource( 4 )]
+position = Vector2( 126, 136 )

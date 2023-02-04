@@ -12,6 +12,7 @@ public class Dash : PlayerState
         player.numDash--;
         player.isDashing = true;
         player.animationState.Travel("Dash");
+        ((SoundManager)GetNode("/root/SoundManager")).dashSound.Play();
     }
 
     public override void Exit()

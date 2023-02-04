@@ -24,5 +24,6 @@ public class PresentScreen : TextureRect
     public void OnTimerTimeout()
     {
         sceneManager.ChangeScene(nextScene, "LightFade");
+        ((SoundManager)GetNode("/root/SoundManager")).gameplayMusic.Play(); // TO-DO: change it to Title Music
     }
 }

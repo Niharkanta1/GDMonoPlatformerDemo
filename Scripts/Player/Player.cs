@@ -53,7 +53,7 @@ public class Player : KinematicBody2D
         numDash = maxDash;
         snapVector = snapDirection * snapLength;
         floorMaxAngle = MathUtil.DegreeToRadian(floorMaxAngleDegree);
-        rigidPush = new Vector2(255, 50);
+        rigidPush = new Vector2(255, 0);
     }
 
     public void UpdateDirection(float inputDirectionX)
@@ -94,5 +94,6 @@ public class Player : KinematicBody2D
         var path = "res://Scenes/Levels/" + leveName + ".tscn";
         var currentScene = ResourceLoader.Load<PackedScene>(path);
         ((SceneManager)GetNode("/root/SceneManager")).ChangeScene(currentScene, "LevelFade");
+        ((SoundManager)GetNode("/root/SoundManager")).gameplayMusic.Play();
     }
 }

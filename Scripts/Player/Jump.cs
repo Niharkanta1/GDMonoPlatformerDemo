@@ -11,6 +11,7 @@ public class Jump : PlayerState
     {
         player.velocity.y = player.jumpSpeed;
         player.animationState.Travel("Jump");
+        ((SoundManager)GetNode("/root/SoundManager")).jumpSound.Play();
     }
 
     public override void Exit()

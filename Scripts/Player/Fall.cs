@@ -14,7 +14,7 @@ public class Fall : PlayerState
 
     public override void Exit()
     {
-        base.Exit();
+        ((SoundManager)GetNode("/root/SoundManager")).landSound.Play();
     }
 
     public override void PhysicsUpdate(float delta)

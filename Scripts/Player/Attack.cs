@@ -11,11 +11,12 @@ public class Attack : PlayerState
     {
         player.isAttacking = true;
         player.animationState.Travel("Attack");
+        ((SoundManager)GetNode("/root/SoundManager")).attackSound.Play();
     }
 
     public override void Exit()
     {
-        base.Exit();
+
     }
 
     public override void PhysicsUpdate(float delta)

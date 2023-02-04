@@ -11,6 +11,8 @@ public class Death : PlayerState
     {
         player.animationState.Travel("Death");
         player.playerCollisionShape.Disabled = true;
+        ((SoundManager)GetNode("/root/SoundManager")).StopAllMusic();
+        ((SoundManager)GetNode("/root/SoundManager")).deathSound.Play();
     }
 
     public override void Exit()

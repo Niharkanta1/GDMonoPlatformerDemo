@@ -22,3 +22,5 @@ script_templates/
 .vs/
 Backup/
 UpgradeLog.htm
+
+/Exports

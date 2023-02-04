@@ -8,6 +8,8 @@ public class SceneManager : CanvasLayer
 {
     [Export] private Color darkColor = new Color(20, 50, 85, 255);
     [Export] private Color whiteColor = new Color(255, 255, 255, 255);
+    [Export] bool testing = false;
+    [Export] PackedScene testingScene;
 
     private AnimationPlayer animationPlayer;
     private ColorRect colorRect;
@@ -20,7 +22,13 @@ public class SceneManager : CanvasLayer
     {
         animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
         colorRect = GetNode<ColorRect>("ColorRect");
+        if (testing)
+        {
+            ChangeScene(testingScene, "DarkFade");
+            return;
+        }
         ChangeScene(logoScreen, "DarkFade");
+
     }
 
     public void ChangeScene(PackedScene newScene, string animation = null)
